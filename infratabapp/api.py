@@ -1,4 +1,4 @@
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization
 from tastypie.cache import SimpleCache
 from tastypie import fields
@@ -12,6 +12,10 @@ class ReminderDetailsResource(ModelResource):
         authorization = Authorization()
         always_return_data = True
         cache = SimpleCache(timeout=10)
+        filtering = {
+            'message': ALL,
+            'datetime': ALL,
+        }
 
 class EmailNotificationResource(ModelResource):
     reminder = fields.ForeignKey(ReminderDetailsResource, 'reminder')
@@ -23,6 +27,10 @@ class EmailNotificationResource(ModelResource):
         authorization = Authorization()
         always_return_data = True
         cache = SimpleCache(timeout=10)
+        filtering = {
+            'email': ALL,
+            'reminder': ALL_WITH_RELATIONS,
+        }
 
     def dehydrate(self, bundle):
         bundle.data['reminder'] = bundle.obj.reminder.message
@@ -38,6 +46,10 @@ class SMSNotificationResource(ModelResource):
         authorization = Authorization()
         always_return_data = True
         cache = SimpleCache(timeout=10)
+        filtering = {
+            'mobile': ALL,
+            'reminder': ALL_WITH_RELATIONS,
+        }
 
     def dehydrate(self, bundle):
         bundle.data['reminder'] = bundle.obj.reminder.message
