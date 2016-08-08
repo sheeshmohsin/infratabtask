@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from tastypie.api import Api
+from infratabapp.api import ReminderDetailsResource, EmailNotificationResource, SMSNotificationResource
+
+v1_api = Api(api_name='v1')
+v1_api.register(ReminderDetailsResource())
+v1_api.register(EmailNotificationResource())
+v1_api.register(SMSNotificationResource())
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/', include(v1_api.urls)),
 ]
