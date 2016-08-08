@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 
 from infratabtask.celery import app
-from infratabapp.models import ReminderDetails
 from celery import Task
 from infratabapp.utils import send_email_notf, send_phone_notf
 
@@ -17,6 +16,7 @@ class SendNotf(Task):
         self.phone_notf()
 
     def get_object(self):
+        from infratabapp.models import ReminderDetails
         self.obj = ReminderDetails.objects.get(pk=self.pk)
         self.message = self.obj.message
 
