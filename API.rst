@@ -585,4 +585,32 @@ Once again, we get back the "Accepted" response of a 204::
 We can also use smsnotification, emailnotification model api in above format
 -----------------------------------------------------------------------------
 
+Filtering of Reminders
+--------------------------
+
+Let’s try filtering on the resource. Since we know we can filter on the message column of reminder::
+
+    curl "http://localhost:8000/api/v1/reminder/?format=json&message__contains=testing"
+    
+Returns::
+
+    {
+        "meta": {
+            "limit": 20,
+            "next": null,
+            "offset": 0,
+            "previous": null,
+            "total_count": 1
+        },
+        "objects": [
+            {
+                "datetime": "2016-08-15T22:46:27",
+                "id": 6,
+                "message": "testing job",
+                "resource_uri": "/api/v1/reminder/6/"
+            }
+        ]
+    }
+    
+Similiary, we can use all django lookups in the url itself for any resources.
 
