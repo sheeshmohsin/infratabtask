@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import signals
+from infratabapp.signals import update_message
 
 # Create your models here.
 class ReminderDetails(models.Model):
@@ -27,3 +29,5 @@ class SMSNotification(models.Model):
 
     def __str__(self):
         return self.mobile
+
+signals.post_save.connect(update_message, sender=ReminderDetails)
