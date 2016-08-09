@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from tastypie.api import Api
-from infratabapp.api import ReminderDetailsResource, EmailNotificationResource, SMSNotificationResource
+from infratabapp.api import ReminderDetailsResource, \
+    EmailNotificationResource, SMSNotificationResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(ReminderDetailsResource())

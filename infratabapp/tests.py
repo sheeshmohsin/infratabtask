@@ -5,6 +5,7 @@ from tastypie.test import TestApiClient
 
 client = TestApiClient()
 
+
 # Create your tests here.
 class ApiTestCase(TestCase):
 
@@ -38,8 +39,17 @@ class ApiTestCase(TestCase):
 
     def test_api_reminder_save(self):
         datetimer = datetime.datetime.now() + datetime.timedelta(days=1)
-        resp = client.post('/api/v1/reminder/', data={'datetime': datetimer.utcnow().isoformat(), 'message': 'test message'})
+        resp = client.post(
+                    '/api/v1/reminder/', data={
+                                'datetime': datetimer.utcnow().isoformat(),
+                                'message': 'test message'
+                                }
+                    )
         self.assertEqual(resp.status_code, 201)
-        resp = client.delete('/api/v1/reminder/', data={'datetime': datetimer.utcnow().isoformat(), 'message': 'test message'})
+        resp = client.delete(
+                    '/api/v1/reminder/', data={
+                                'datetime': datetimer.utcnow().isoformat(),
+                                'message': 'test message'
+                                }
+                    )
         self.assertEqual(resp.status_code, 204)
-

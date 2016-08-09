@@ -2,7 +2,9 @@ from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization
 from tastypie.cache import SimpleCache
 from tastypie import fields
-from infratabapp.models import ReminderDetails, SMSNotification, EmailNotification
+from infratabapp.models import ReminderDetails, \
+        SMSNotification, EmailNotification
+
 
 class ReminderDetailsResource(ModelResource):
 
@@ -16,6 +18,7 @@ class ReminderDetailsResource(ModelResource):
             'message': ALL,
             'datetime': ALL,
         }
+
 
 class EmailNotificationResource(ModelResource):
     reminder = fields.ForeignKey(ReminderDetailsResource, 'reminder')
@@ -35,6 +38,7 @@ class EmailNotificationResource(ModelResource):
     def dehydrate(self, bundle):
         bundle.data['reminder'] = bundle.obj.reminder.message
         return bundle
+
 
 class SMSNotificationResource(ModelResource):
     reminder = fields.ForeignKey(ReminderDetailsResource, 'reminder')
